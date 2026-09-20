@@ -1,0 +1,196 @@
+import type { Article } from '@/types'
+import { img } from '../images'
+import { Q } from '../quotes'
+
+const issue = 'issue-1-june-2025'
+
+export const issue1: Article[] = [
+  {
+    slug: 'a-quel-point-linformatique-est-si-loin-de-la-nature',
+    title: "À quel point l'informatique est si loin de la nature ?",
+    deck: "Réseaux de neurones, algorithmes génétiques, colonies de fourmis : l'informatique emprunte au vivant depuis toujours, sans toujours s'en rendre compte.",
+    category: 'artificial-intelligence',
+    authors: ['tiziri-bouaoud'],
+    issue,
+    date: '2025-06-12',
+    lang: 'fr',
+    excerpt:
+      "On oppose volontiers le silicium au vivant. Pourtant, une bonne partie de l'informatique moderne est une longue conversation avec la nature — et elle a encore beaucoup à apprendre.",
+    keywords: ['bio-inspiré', 'réseaux de neurones', 'algorithmes génétiques', 'biomimétisme'],
+    image: { src: img.sun, alt: "Illustration : un grand disque orangé au-dessus d'une façade à bandes horizontales.", caption: "Illustration : bibliothèque du campus, ESTIN.", position: '50% 40%' },
+    pages: '6–11',
+    popularity: 92,
+    featured: true,
+    body: [
+      { type: 'p', lead: true, text: "On oppose volontiers l'informatique et la nature : d'un côté des circuits, des serveurs, des lignes de code ; de l'autre des forêts, des cellules, des colonies d'insectes. Cette opposition est confortable. Elle est aussi largement fausse." },
+      { type: 'p', text: "Dès 1943, Warren McCulloch et Walter Pitts proposent un modèle mathématique du neurone[[1]]. Trente ans plus tard, John Holland formalise les algorithmes génétiques en s'inspirant de la sélection naturelle. Dans les années 1990, Marco Dorigo observe des fourmis qui trouvent le chemin le plus court vers une source de nourriture et en tire une famille d'algorithmes d'optimisation. L'informatique n'a pas cessé d'emprunter au vivant ; elle l'a seulement fait discrètement." },
+      { type: 'h2', id: 'des-emprunts', text: 'Des emprunts plus nombreux qu’on ne le croit' },
+      { type: 'p', text: 'Trois familles suffisent à mesurer l’étendue de la dette :' },
+      { type: 'list', items: [
+        '**Les réseaux de neurones**, inspirés du cerveau, qui portent aujourd’hui l’essentiel de l’intelligence artificielle.',
+        '**Les algorithmes génétiques**, qui font évoluer des solutions par sélection, croisement et mutation.',
+        '**L’optimisation par colonies de fourmis**, où de nombreux agents simples construisent ensemble une solution que nul ne planifie.',
+      ] },
+      { type: 'quote', text: Q.nature, cite: 'Tiziri BOUAOUD' },
+      { type: 'h2', id: 'ce-que-la-nature-fait-autrement', text: 'Ce que la nature fait autrement' },
+      { type: 'p', text: "Le contraste est pourtant frappant. Un cerveau humain fonctionne avec une vingtaine de watts ; l'entraînement d'un grand modèle de langage mobilise des milliers de processeurs pendant des semaines. Le vivant apprend à partir de quelques exemples, tolère la panne d'une partie de ses composants et se répare. Nos systèmes, eux, exigent des données massives et cessent de fonctionner à la première erreur de configuration." },
+      { type: 'figure', src: img.paintFacade, alt: 'Illustration du bâtiment de la bibliothèque, façade bleue et orange.', caption: "Le campus vu comme un système : des modules répétés, des circulations, une structure lisible.", credit: 'Illustration L’Empreinte' },
+      { type: 'p', text: "Regarder la nature n'est donc pas une coquetterie de chercheur. C'est un moyen de poser une question d'ingénierie : que perdons-nous en concevant nos machines contre le vivant plutôt qu'avec lui ?[[2]]" },
+      { type: 'h2', id: 'une-empreinte', text: 'Laisser une empreinte' },
+      { type: 'p', text: "Le nom de ce journal n'est pas innocent. Chaque système que nous construisons laisse une trace, numérique et écologique. La question n'est peut-être pas de savoir à quel point l'informatique est loin de la nature, mais de quelle nature nous voulons qu'elle se rapproche." },
+    ],
+    notes: [
+      { id: 1, text: 'McCulloch et Pitts proposent un neurone binaire à seuil ; il reste très éloigné de la biologie réelle mais fonde le connexionnisme.' },
+      { id: 2, text: 'Le terme « biomimétisme » a été popularisé par Janine Benyus en 1997.' },
+    ],
+    references: [
+      'McCulloch, W. S. & Pitts, W. (1943). A logical calculus of the ideas immanent in nervous activity. Bulletin of Mathematical Biophysics, 5, 115–133.',
+      'Holland, J. H. (1975). Adaptation in Natural and Artificial Systems. University of Michigan Press.',
+      'Dorigo, M. & Stützle, T. (2004). Ant Colony Optimization. MIT Press.',
+      'Benyus, J. M. (1997). Biomimicry: Innovation Inspired by Nature. William Morrow.',
+    ],
+  },
+  {
+    slug: 'the-fast-inverse-square-root-algorithm',
+    title: 'The Fast Inverse Square Root Algorithm',
+    deck: 'A famous piece of game code replaces a slow division and a square root with an integer subtraction. Here is why it works.',
+    category: 'technology',
+    authors: ['anis-koua'],
+    issue,
+    date: '2025-06-10',
+    lang: 'en',
+    excerpt: 'One magic constant, one shift and one Newton step: how a few lines of C made real-time 3D lighting affordable in the late 1990s.',
+    keywords: ['floating point', 'IEEE 754', 'Newton–Raphson', 'optimisation', 'computer graphics'],
+    image: { src: img.facadePoster, alt: 'Flat illustration of a library facade with horizontal navy and orange bands.', caption: 'Illustration: the campus library.', position: '50% 30%' },
+    pages: '12–19',
+    popularity: 88,
+    featured: true,
+    body: [
+      { type: 'p', lead: true, text: 'Few fragments of code have been read as closely as a dozen lines from the Quake III Arena source. They compute 1/√x — the inverse square root — without ever calling a square root, and they contain a hexadecimal constant nobody could explain at first sight.' },
+      { type: 'h2', id: 'why-bother', text: 'Why bother with 1/√x?' },
+      { type: 'p', text: 'Lighting a 3D scene requires unit vectors: directions whose length is exactly one. To normalise a vector you divide each component by its length, which means computing 1/√(x²+y²+z²) for every surface, every frame. In the late 1990s a square root followed by a division was expensive enough to matter.' },
+      { type: 'code', language: 'c', caption: 'Adapted from the publicly released Quake III Arena source (GPL).', code: `float Q_rsqrt(float number)
+{
+    long  i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+
+    x2 = number * 0.5F;
+    y  = number;
+    i  = *(long *)&y;              // read the float's bits as an integer
+    i  = 0x5f3759df - (i >> 1);    // the magic step
+    y  = *(float *)&i;             // read the bits back as a float
+    y  = y * (threehalfs - (x2 * y * y));  // one Newton iteration
+    return y;
+}` },
+      { type: 'h2', id: 'floats-as-integers', text: 'Reading a float as an integer' },
+      { type: 'p', text: 'A 32-bit float stores a sign bit, an 8-bit exponent and a 23-bit mantissa[[1]]. Read those same 32 bits as an integer and you obtain, up to a scale factor and an offset, an approximation of the number’s base-2 logarithm. That is the whole insight: the integer view of a float is a cheap logarithm.' },
+      { type: 'figure', custom: 'ieee754', alt: 'Diagram of a 32-bit float split into 1 sign bit, 8 exponent bits and 23 mantissa bits.', caption: 'Layout of an IEEE 754 single-precision number. Read as an integer, these bits approximate log₂ of the value.', wide: true },
+      { type: 'p', text: 'Logarithms turn powers into multiplication. Since 1/√x is x raised to the power −½, its logarithm is simply −½ times the logarithm of x. On the integer view, that is a right shift (halving) followed by a negation — and the constant 0x5F3759DF absorbs the offsets so that the result lands close to the right float.' },
+      { type: 'quote', text: Q.fastRoot, cite: 'Mohamed Anis KOUA' },
+      { type: 'h2', id: 'newton', text: 'One step of Newton' },
+      { type: 'p', text: 'The first estimate is within a few percent. A single Newton–Raphson iteration, which needs only multiplications and one subtraction, reduces the error to well under 0.2 %. Good enough for lighting; more than good enough for 1999.' },
+      { type: 'table', caption: 'The algorithm, step by step', head: ['Step', 'Operation', 'Purpose'], rows: [
+        ['1', 'i = *(long *)&y', 'Reinterpret the float bits as an integer (≈ logarithm)'],
+        ['2', '0x5f3759df − (i >> 1)', 'Halve and negate the logarithm'],
+        ['3', 'y = *(float *)&i', 'Reinterpret back: a first estimate of 1/√x'],
+        ['4', 'y·(1.5 − 0.5·x·y²)', 'One Newton–Raphson iteration to refine'],
+      ] },
+      { type: 'callout', title: 'Do not copy this into new code', text: 'Type punning through pointers is undefined behaviour in standard C. Modern code uses memcpy or std::bit_cast — and most CPUs now offer a hardware reciprocal square root instruction (rsqrtss on x86 since SSE), which is both faster and more accurate.' },
+      { type: 'h2', id: 'who-wrote-it', text: 'Who wrote it?' },
+      { type: 'p', text: 'The constant was not invented at id Software. Investigators traced similar code to earlier work in the computer-graphics industry[[2]], but no single author has ever been firmly identified. The trick itself, however, remains a perfect small lesson: know your data representation well enough and the machine will do the maths for you.' },
+    ],
+    notes: [
+      { id: 1, text: 'For 32-bit floats the exponent is biased by 127. The value is (−1)^s × 1.m × 2^(e−127).' },
+      { id: 2, text: 'Sommefeldt (2006) followed the code through several studios and hardware vendors without finding a definitive origin.' },
+    ],
+    references: [
+      'Lomont, C. (2003). Fast Inverse Square Root. Technical report, Purdue University.',
+      'Blinn, J. F. (1997). Floating-point tricks. IEEE Computer Graphics and Applications, 17(4), 80–84.',
+      'Sommefeldt, R. (2006). Origin of Quake3’s Fast InvSqrt(). Beyond3D.',
+      'IEEE (2019). IEEE Standard for Floating-Point Arithmetic (IEEE Std 754-2019).',
+    ],
+  },
+  {
+    slug: 'what-if-we-were-the-solution',
+    title: 'What if we were the solution?',
+    deck: 'Before asking who will fix the problems around us, students might ask what they can already build.',
+    category: 'startups',
+    authors: ['abdelbasset-meghraoui'],
+    issue,
+    date: '2025-06-09',
+    lang: 'en',
+    excerpt: 'Complaints are easy to produce and rarely useful. A short argument for turning them into specifications — and for starting with what is within reach.',
+    keywords: ['initiative', 'students', 'problem solving', 'community'],
+    image: { src: img.gardenPoster, alt: 'Flat illustration of trees and a staircase in front of a library.', caption: '', position: '50% 60%' },
+    pages: '20–23',
+    popularity: 64,
+    featured: true,
+    body: [
+      { type: 'p', lead: true, text: 'Every campus has a list of things that do not work: the schedule that changes overnight, the form that must be printed, the file that lives on one person’s laptop. We talk about them constantly. We rarely ask a simpler question.' },
+      { type: 'p', text: 'What if the people who notice the problem were also the people best placed to solve it? Students are, after all, the heaviest users of the systems they complain about. They know the failure modes better than anyone, and they are trained — as engineers — to turn a vague irritation into a precise problem statement.' },
+      { type: 'quote', text: Q.solution, cite: 'Abdelbasset MEGHRAOUI' },
+      { type: 'h2', id: 'start-small', text: 'Start with what is within reach' },
+      { type: 'p', text: 'The temptation is to think big: a platform, a startup, a national scale. Most useful things begin smaller. A shared spreadsheet becomes a script; the script becomes a tool used by one department; the tool earns the trust that a larger project needs.' },
+      { type: 'list', items: ['Pick a problem you meet every week.', 'Write down who else suffers from it.', 'Build the smallest thing that helps one of them.', 'Ask them what is still missing.'] },
+      { type: 'p', text: 'None of this requires permission, funding or a company. It requires attention — and the willingness to be the one who fixes it.' },
+    ],
+    references: [],
+  },
+  {
+    slug: 'ai-integration-in-small-businesses',
+    title: 'AI Integration in Small Businesses',
+    deck: 'Small firms do not need an AI strategy. They need one repetitive task, clean data and a way to measure the result.',
+    category: 'artificial-intelligence',
+    authors: ['mahdi-boukendoul'],
+    issue,
+    date: '2025-06-11',
+    lang: 'en',
+    excerpt: 'A practical look at how small businesses can adopt AI without a data-science team: start narrow, measure honestly, keep a human in the loop.',
+    keywords: ['AI adoption', 'SMEs', 'automation', 'data quality'],
+    image: { src: img.paintFacade, alt: 'Painted illustration of the library facade.', caption: '', position: '30% 40%' },
+    pages: '24–29',
+    popularity: 77,
+    featured: true,
+    body: [
+      { type: 'p', lead: true, text: 'Most conversations about artificial intelligence are conducted at the scale of governments and large corporations. Yet the shop, the workshop and the family-run agency are where the decisions about adoption are actually made — with little time and no data team.' },
+      { type: 'h2', id: 'one-problem', text: 'One problem worth solving' },
+      { type: 'p', text: 'The most reliable starting point is a repetitive, low-risk task: sorting incoming requests, drafting standard replies, reconciling invoices. The goal is not to “transform the business” but to give back a few hours a week and learn what the technology is good at[[1]].' },
+      { type: 'quote', text: Q.smallBusiness, cite: 'Mahdi BOUKENDOUL' },
+      { type: 'h2', id: 'data-first', text: 'Clean data beats clever models' },
+      { type: 'p', text: 'A model can only be as useful as the records it sees. Before any tool is chosen, it is worth spending a week making sure customer names, product codes and prices are written in one consistent way. It is unglamorous work, and it decides most outcomes.' },
+      { type: 'list', ordered: true, items: ['Choose a task with a clear before and after.', 'Measure the current time and error rate.', 'Pilot with one person for a month.', 'Keep a human responsible for the final decision.'] },
+      { type: 'p', text: 'Measured this way, an AI pilot becomes an ordinary business experiment: cheap, reversible and easy to explain to the people involved.' },
+    ],
+    notes: [{ id: 1, text: 'Mollick (2024) describes this as learning the “jagged frontier” of what current models do well.' }],
+    references: ['Mollick, E. (2024). Co-Intelligence: Living and Working with AI. Portfolio/Penguin.'],
+  },
+  {
+    slug: 'entrepreneurship-in-algeria',
+    title: 'Entrepreneurship in Algeria: A Choice or an Inevitable Path for the Ambitious?',
+    deck: 'A student freelancer discovers that talent alone does not open the door to larger clients — and asks what it takes to make the leap.',
+    category: 'startups',
+    authors: ['aymen-benraya'],
+    issue,
+    date: '2025-06-08',
+    lang: 'en',
+    excerpt: 'As a fresh university student, I was highly motivated to learn skills that would help me advance in my career, make money, and achieve my goals…',
+    keywords: ['entrepreneurship', 'freelancing', 'informal economy', 'Algeria'],
+    image: { src: img.photoWindows, alt: 'Photograph of the campus library, seen from above.', caption: 'The campus, where many of these ideas begin.', position: '50% 40%' },
+    pages: '30–37',
+    popularity: 95,
+    body: [
+      { type: 'p', lead: true, text: 'As a fresh university student, I was highly motivated to learn skills that would help me advance in my career, make money, and achieve my goals. I explored different fields, from development and design to sales and business skills. Bit by bit, I started freelancing in motion graphic design and was earning a good income for my age. However, the work wasn’t consistent, and since everything was done in the informal market, I couldn’t access larger clients who required a legal business that could issue invoices and pay taxes.' },
+      { type: 'p', text: 'That was the moment the question stopped being “Can I do this work?” and became “Can I do this work in a way that others can build on?” The distance between a talented freelancer and a registered business turned out to be much larger than the distance between an idea and a first client.' },
+      { type: 'h2', id: 'what-status-unlocks', text: 'What a formal status unlocks' },
+      { type: 'p', text: 'It is easy to see registration as bureaucracy. In practice it is a set of doors that stay closed without it:' },
+      { type: 'list', items: ['Invoices that a larger client’s finance department can actually process.', 'A business bank account, and with it, a way to be paid across borders.', 'Access to programmes and funding aimed at registered ventures.', 'A track record that can be shown to the next client.'] },
+      { type: 'quote', text: Q.entrepreneurship, cite: 'Aymen BENRAYA' },
+      { type: 'h2', id: 'choice-or-path', text: 'A choice, or a path?' },
+      { type: 'p', text: 'Framing entrepreneurship as a choice is flattering, but it hides a constraint. For many ambitious graduates the alternatives are narrower than they appear: a limited number of employers in a given field, and an informal economy that rewards skill but cannot scale it. In that context starting up is less a lifestyle decision than the most direct route to work that grows.' },
+      { type: 'callout', title: 'What would help', text: 'Clearer, faster paths to register a very small activity; mentoring from people who have already crossed the line between freelancing and a company; and a culture that treats invoicing as a professional skill, not an administrative afterthought.' },
+      { type: 'p', text: 'Universities cannot solve this alone, but they can normalise the conversation. A journal like this one is a small place to begin.' },
+    ],
+    references: [],
+  },
+]

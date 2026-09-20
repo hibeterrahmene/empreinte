@@ -1,0 +1,17 @@
+/*
+  Neue Haas Grotesk Display Pro (Monotype) est une police commerciale : elle n'est pas
+  redistribuable dans ce dépôt. Une fois la licence web acquise, déposez les fichiers dans
+  /public/fonts et décommentez le bloc ci-dessous : tailwind.config.js la place déjà en tête
+  de la pile `font-display`. D'ici là, Inter Tight (chargée via @fontsource) est utilisée.
+
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('/fonts/NeueHaasGroteskDisplayPro-65Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url('/fonts/NeueHaasGroteskDisplayPro-75Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+*/
