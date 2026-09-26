@@ -2,8 +2,8 @@ import type { Issue } from '@/types'
 import { img } from './images'
 
 /**
- * Numéro 1 : données issues de la maquette (couverture réelle, texte de présentation).
- * Numéros 2 et 3 : DÉMONSTRATION (couvertures générées à partir des logos) — à remplacer.
+ * Les deux numéros réellement publiés de L'Empreinte. Couvertures et PDF sont les
+ * fichiers originaux fournis par la rédaction (public/issues/).
  */
 export const issues: Issue[] = [
   {
@@ -11,49 +11,33 @@ export const issues: Issue[] = [
     number: 1,
     title: 'Beyond the borders of the digital',
     subtitle: 'Au-delà des frontières du numérique',
-    date: '2025-06-15',
+    date: '2025-06-04',
     summary:
-      "What if our most advanced technologies were inspired by nature? This inaugural issue explores bio-inspired intelligence, innovative algorithms, and student entrepreneurship in Algeria. Featuring exclusive interviews on the LITAN laboratory and ESTIN's new IoT specialty.",
+      "Le premier numéro de la revue des étudiants de l'ESTIN : intelligence artificielle inspirée du vivant, algorithmes bas niveau, smart contracts, cybersécurité, entrepreneuriat étudiant, et deux entretiens avec le laboratoire LITAN et la spécialité IoT de l'école.",
     editorial: [
-      'Every journal begins with a decision to leave something behind. For this first issue, we chose to leave a mark — an empreinte — on the way students at ESTIN talk about technology: not as a finished product to consume, but as a living practice to question.',
-      'The pieces gathered here share one curiosity. What happens when computing looks at nature not as a metaphor but as a method? From the bit-level tricks that made real-time graphics possible to the ants that inspired routing algorithms, the answers are rarely where we expect them.',
-      'They also share a conviction: that ambition needs structure. Two contributors write frankly about what it takes to start up in Algeria today. We hope this issue gives you a reason to read, to disagree, and — above all — to write for the next one.',
+      "Sous l'égide de Monsieur le Directeur de l'école, la bibliothèque de l'ESTIN a le plaisir d'annoncer la création de la revue de la bibliothèque L'Empreinte, née d'une initiative du Dr S. Iken, responsable de la bibliothèque.",
+      "La revue souhaiterait assurer le rôle d'un support de communication permettant à nos étudiants de s'exprimer, de dire, d'annoncer leur avis sur le développement technologique fulgurant que connaît notre monde actuel. Elle servira aussi à informer nos étudiants sur les avancées les plus récentes dans les domaines technologiques et celui des sciences de l'informatique.",
+      "Pourquoi le choix de l'intitulé L'Empreinte ? Elle permet à notre étudiant de laisser sa signature pour les générations futures car les numéros de la revue seront archivés. Les fils voire les petits-fils peuvent lire les contributions de leurs parents.",
+      "La vocation de notre revue est certes la vulgarisation, mais aussi elle suivra de très près le monde des start-up et celui des innovations. La revue sera sans aucun penchant idéologique, apolitique et totalement neutre, obéissant ainsi à l'éthique régissant les revues scientifiques.",
+      'Nous invitons les étudiants à laisser leur Empreinte.',
     ],
-    cover: { image: img.coverN1 },
-    pdfUrl: '#', // PLACEHOLDER — lien vers le PDF hébergé
+    cover: { image: img.cover1 },
+    pdfUrl: '/issues/lempreinte-numero-1-juin-2025.pdf',
   },
   {
-    slug: 'issue-2-december-2025',
+    slug: 'issue-2-april-2026',
     number: 2,
-    title: 'Trust, by design',
-    subtitle: 'Sécurité, confiance et infrastructures',
-    date: '2025-12-15',
+    title: 'Digital Technologies: Concepts and Academic Perspectives',
+    date: '2026-04-01',
     summary:
-      'How do systems earn our trust? Four contributors look at passwordless authentication, the handshake that secures the web, cloud independence and zero trust on a student budget.',
+      'A guided exploration of modern digital technologies, from artificial intelligence and software systems to security, accessibility, and academic perspectives — with interviews of the ESTIN director, Pr. Abdelkamel Tari, and of faculty researchers.',
     editorial: [
-      'Trust is an engineering property before it is a feeling. It is designed, tested, and — too often — assumed.',
-      'This issue follows the trail of a single request across the network: who you are, who you are talking to, and where your data ends up. Each article takes a piece of that chain apart.',
+      'This second issue of L’Empreinte brings together a diverse collection of scientific articles exploring a wide range of technological fields. It contributes to a broader reflection on the evolution of digital technologies and modern computing, covering both technical foundations such as Artificial Intelligence, Containers, IoT security, Data Structures, and key ethical and societal issues, including AI governance, intellectual property, and digital accessibility.',
+      'This edition also highlights the human and institutional sides of science and innovation, with topics related to academic leadership and innovation pathways. Its goal is to better understand, guide, and shape the future of science and technology.',
+      'In addition, L’Empreinte is honored to feature insightful interviews with faculty members, researchers, and other figures from the academic world. These conversations give readers the opportunity to broaden their perspectives, discover the views of experienced researchers in technology and scientific research, and reflect on the future of the digital world.',
     ],
-    cover: { variant: 'clay', art: img.poster },
-    pdfUrl: '#',
-    pages: 44,
-    demo: true,
-  },
-  {
-    slug: 'issue-3-june-2026',
-    number: 3,
-    title: 'Machines that listen',
-    subtitle: 'Robotique, capteurs et intelligence embarquée',
-    date: '2026-06-15',
-    summary:
-      'From a robot arm built out of salvaged servos to a sensor network on a hillside campus: this issue is about machines that sense, decide and act — and the students who build them.',
-    editorial: [
-      'A machine that listens is a machine that has to be wrong sometimes. Sensors drift, batteries die, radios drop packets. Engineering, here, is the art of being wrong gracefully.',
-      'The four pieces in this issue are field notes: honest accounts of what worked, what did not, and what we would do differently.',
-    ],
-    cover: { variant: 'night' },
-    pdfUrl: '#',
-    pages: 52,
-    demo: true,
+    cover: { image: img.cover2 },
+    pdfUrl: '/issues/lempreinte-numero-2-avril-2026.pdf',
+    pages: 114,
   },
 ]

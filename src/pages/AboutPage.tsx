@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CheckCircle2, Mail, MapPin } from 'lucide-react'
-import { editorialTeam, siteConfig } from '@/data/siteConfig'
+import { editorialTeam, missionGoals, siteConfig } from '@/data/siteConfig'
 import { img } from '@/data/images'
 import { useI18n } from '@/lib/i18n'
 import { email as vEmail, minLength, required, run } from '@/lib/validation'
@@ -24,7 +24,7 @@ export default function AboutPage() {
     setErr(n)
     if (!Object.values(n).some(Boolean)) setSent(true)
   }
-  const groups = Array.from(new Set(editorialTeam.map((m) => m.group)))
+
 
   return (
     <>
@@ -41,12 +41,24 @@ export default function AboutPage() {
         <div className="space-y-5 lg:col-span-7">
           <p className="t-lede">{t('about.missionA')}</p>
           <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-ink/85">{t('about.missionB')}</p>
+          <ol className="mt-2 space-y-3">
+            {missionGoals.map((g, i) => (
+              <li key={i} className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink/85">
+                <span aria-hidden className="mt-0.5 shrink-0 font-display font-semibold text-mark-deep">{i + 1}.</span>
+                <span className="max-w-[58ch]">{g}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section aria-labelledby="name-h" className="page mt-20 grid gap-8 border-t border-ink/15 pt-10 md:mt-28 lg:grid-cols-12 lg:gap-16">
         <h2 id="name-h" className="t-h3 lg:col-span-4">{t('about.name')}</h2>
-        <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-ink/85 lg:col-span-7">{t('about.nameText')}</p>
+        <div className="space-y-4 lg:col-span-7">
+          <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-ink/85">{t('about.nameText')}</p>
+          <p className="max-w-[62ch] text-[0.9375rem] leading-relaxed text-stone-700">{t('about.founderText', { name: siteConfig.founder.name })}</p>
+          <p className="max-w-[62ch] text-[0.9375rem] italic text-stone-500">{siteConfig.dedication}</p>
+        </div>
       </section>
 
       <section aria-labelledby="estin-h" className="mt-24 bg-cream py-16 md:mt-32 md:py-24">
@@ -64,16 +76,20 @@ export default function AboutPage() {
 
       <section id="team" aria-labelledby="team-h" className="page mt-24 md:mt-32">
         <h2 id="team-h" className="t-h2 border-t border-ink pt-8">{t('about.team')}</h2>
-        <p className="mt-3 text-[0.875rem] text-stone-500">{t('about.teamNote')}</p>
+        <p className="mt-3 max-w-[64ch] text-[0.9375rem] leading-relaxed text-stone-700">{t('about.teamNote', { name: siteConfig.founder.name })}</p>
         <div className="mt-10 grid gap-12 lg:grid-cols-2">
-          {groups.map((g) => (
-            <Reveal key={g}>
-              <h3 className="t-label mb-2 text-stone-700">{g}</h3>
-              <ul className="divide-y divide-ink/15 border-y border-ink/15">
-                {editorialTeam.filter((m) => m.group === g).map((m) => <li key={m.name} className="flex flex-wrap items-baseline justify-between gap-x-6 py-4"><span className="t-h4">{m.name}</span><span className="text-[0.9375rem] text-stone-500">{m.person}</span></li>)}
-              </ul>
-            </Reveal>
-          ))}
+          <Reveal>
+            <h3 className="t-label mb-2 text-stone-700">{t('about.chiefEditors')}</h3>
+            <ul className="divide-y divide-ink/15 border-y border-ink/15">
+              {editorialTeam.chiefEditors.map((name) => <li key={name} className="py-4 t-h4">{name}</li>)}
+            </ul>
+          </Reveal>
+          <Reveal delay={80}>
+            <h3 className="t-label mb-2 text-stone-700">{t('about.reviewCommittee')}</h3>
+            <ul className="grid grid-cols-1 divide-y divide-ink/15 border-y border-ink/15 sm:grid-cols-2 sm:divide-y-0">
+              {editorialTeam.reviewCommittee.map((name) => <li key={name} className="border-b border-ink/15 py-2.5 text-[0.9375rem] sm:border-b-0 sm:py-1.5">{name}</li>)}
+            </ul>
+          </Reveal>
         </div>
       </section>
 

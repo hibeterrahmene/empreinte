@@ -74,6 +74,8 @@ export interface Article {
   popularity: number
   featured?: boolean
   demo?: boolean
+  /** Rubrique imprimée du numéro (Varia, Dossier, Comptes-rendus, Entretiens…), quand elle existe. */
+  section?: string
 }
 
 export interface PullQuoteItem {

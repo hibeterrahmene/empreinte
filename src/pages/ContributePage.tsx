@@ -14,21 +14,22 @@ import { CheckboxField, FileField, SelectField, TextArea, TextField } from '@/co
 import { img } from '@/data/images'
 
 interface Values {
-  firstName: string; lastName: string; email: string; affiliation: string
+  firstName: string; lastName: string; email: string; studyLevel: string
   title: string; abstract: string; keywords: string; category: string; type: string; language: string
   comments: string; consent: boolean; originality: boolean
 }
 type Errors = Partial<Record<keyof Values | 'file' | 'coauthors', string>>
-const empty: Values = { firstName: '', lastName: '', email: '', affiliation: '', title: '', abstract: '', keywords: '', category: '', type: '', language: 'en', comments: '', consent: false, originality: false }
+const empty: Values = { firstName: '', lastName: '', email: '', studyLevel: '', title: '', abstract: '', keywords: '', category: '', type: '', language: 'en', comments: '', consent: false, originality: false }
+const STUDY_LEVELS = ['1CP', '2CP', '1CS', '2CS-CS', '2CS-AI', '3CS-CS', '3CS-AI']
 const MAX_MB = 10
-const ACCEPT = '.doc,.docx,.pdf,.odt'
-const ORDER: (keyof Values | 'file' | 'coauthors')[] = ['firstName', 'lastName', 'email', 'affiliation', 'title', 'type', 'category', 'language', 'abstract', 'keywords', 'coauthors', 'file', 'originality', 'consent']
+const ACCEPT = '.doc,.docx,.tex,.pdf,.odt'
+const ORDER: (keyof Values | 'file' | 'coauthors')[] = ['firstName', 'lastName', 'email', 'studyLevel', 'title', 'type', 'category', 'language', 'abstract', 'keywords', 'coauthors', 'file', 'originality', 'consent']
 
 export default function ContributePage() {
   const { t, cat } = useI18n()
   const { user, addSubmission } = useAuth()
   useDocumentTitle(t('nav.contribute'))
-  const [v, setV] = useState<Values>({ ...empty, firstName: user?.firstName ?? '', lastName: user?.lastName ?? '', email: user?.email ?? '', affiliation: user?.affiliation ?? '' })
+  const [v, setV] = useState<Values>({ ...empty, firstName: user?.firstName ?? '', lastName: user?.lastName ?? '', email: user?.email ?? '' })
   const [file, setFile] = useState<File | null>(null)
   const [co, setCo] = useState<{ name: string; email: string }[]>([])
   const [errors, setErrors] = useState<Errors>({})
@@ -45,13 +46,13 @@ export default function ContributePage() {
     e.firstName = run(v.firstName, req) ?? undefined
     e.lastName = run(v.lastName, req) ?? undefined
     e.email = run(v.email, req, vEmail(t('form.emailInvalid'))) ?? undefined
-    e.affiliation = run(v.affiliation, req) ?? undefined
+    e.studyLevel = run(v.studyLevel, required(t('form.chooseOne'))) ?? undefined
     e.title = run(v.title, req, (s) => (s.trim().length < 8 ? t('form.titleShort') : null)) ?? undefined
     e.type = run(v.type, required(t('form.chooseOne'))) ?? undefined
     e.category = run(v.category, required(t('form.chooseOne'))) ?? undefined
-    e.abstract = run(v.abstract, req, minWords(50, t('form.abstractMin')), maxWords(250, t('form.abstractMax'))) ?? undefined
+    e.abstract = run(v.abstract, req, minWords(40, t('form.abstractMin')), maxWords(170, t('form.abstractMax'))) ?? undefined
     const kws = v.keywords.split(',').map((k) => k.trim()).filter(Boolean)
-    e.keywords = kws.length < 3 || kws.length > 6 ? t('form.keywordsRange') : undefined
+    e.keywords = kws.length !== 5 ? t('form.keywordsRange') : undefined
     if (!file) e.file = t('form.fileRequired')
     else if (!/\.(docx?|pdf|odt)$/i.test(file.name)) e.file = t('form.fileType')
     else if (file.size > MAX_MB * 1024 * 1024) e.file = t('form.fileSize', { n: MAX_MB })
@@ -90,11 +91,11 @@ export default function ContributePage() {
     { title: t('contribute.s5'), text: t('contribute.s5t'), time: t('contribute.s5d') },
   ]
   const types = [
-    { id: 'essay', label: t('contribute.type.essay'), words: '1,500 – 2,500' },
-    { id: 'technical', label: t('contribute.type.technical'), words: '800 – 1,500' },
-    { id: 'interview', label: t('contribute.type.interview'), words: '1,000 – 1,800' },
-    { id: 'opinion', label: t('contribute.type.opinion'), words: '600 – 1,000' },
-    { id: 'research', label: t('contribute.type.research'), words: '2,000 – 4,000' },
+    { id: 'essay', label: t('contribute.type.essay'), words: '500 – 2,000' },
+    { id: 'technical', label: t('contribute.type.technical'), words: '500 – 2,000' },
+    { id: 'interview', label: t('contribute.type.interview'), words: '500 – 2,000' },
+    { id: 'opinion', label: t('contribute.type.opinion'), words: '500 – 2,000' },
+    { id: 'research', label: t('contribute.type.research'), words: '500 – 2,000' },
   ]
   const faq = [1, 2, 3, 4, 5].map((n) => ({ q: t(`contribute.faq${n}q` as 'contribute.faq1q'), a: t(`contribute.faq${n}a` as 'contribute.faq1a') }))
   const errList = ORDER.filter((k) => errors[k])
@@ -106,6 +107,10 @@ export default function ContributePage() {
         <div className="lg:col-span-7">
           <h1 className="t-display">{t('contribute.title')}</h1>
           <p className="t-lede mt-6 max-w-[42ch] text-stone-700">{t('contribute.intro')}</p>
+          <blockquote className="mt-6 max-w-[42ch] border-s-2 border-mark ps-4">
+            <p className="font-display text-[1.0625rem] italic leading-snug text-ink/85">{t('contribute.herzogQuote')}</p>
+            <footer className="mt-1.5 font-sans text-[0.8125rem] text-stone-500">— Maurice Herzog</footer>
+          </blockquote>
           <div className="mt-8 flex flex-wrap gap-3"><Button href="#submit" size="lg" arrow>{t('contribute.cta')}</Button><Button href="#guidelines" variant="outline" size="lg" className="!border-ink !text-ink hover:!bg-ink hover:!text-white">{t('contribute.guidelinesLink')}</Button></div>
         </div>
         <div className="hidden overflow-hidden lg:col-span-5 lg:block"><img src={img.photoWindows} alt="" className="aspect-[4/3] w-full object-cover" /></div>
@@ -159,6 +164,7 @@ export default function ContributePage() {
             <p className="mt-4 max-w-[36ch] text-stone-700">{t('contribute.formIntro')}</p>
             <p className="mt-6 text-[0.875rem] text-stone-700">{t('contribute.questions')} <a className="link font-medium text-ink" href={`mailto:${siteConfig.contact.submissions}`}>{siteConfig.contact.submissions}</a></p>
             {!user && <p className="mt-3 text-[0.875rem] text-stone-700"><Link className="link font-medium text-ink" to="/login?next=/contribute">{t('nav.login')}</Link> {t('contribute.loginHint')}</p>}
+            <p className="mt-3 text-[0.875rem] text-stone-700">{t('contribute.googleFormHint')} <a className="link font-medium text-ink" href={siteConfig.googleFormUrl} target="_blank" rel="noopener noreferrer">Google Forms<span className="sr-only"> ({t('common.newTab')})</span></a></p>
           </div>
 
           <div className="lg:col-span-8">
@@ -168,7 +174,7 @@ export default function ContributePage() {
                 <h3 className="t-h2 mt-5">{t('contribute.sentTitle')}</h3>
                 <p className="mt-3 max-w-[52ch] text-stone-700">{t('contribute.sentText', { email: v.email })}</p>
                 <p className="mt-5 font-sans text-[0.9375rem]">{t('contribute.reference')} <strong className="font-semibold tabular-nums">{sent.id}</strong></p>
-                <div className="mt-8 flex flex-wrap gap-3"><Button to="/profile?tab=submissions" variant="dark">{t('contribute.viewSubmissions')}</Button><Button variant="outline" onClick={() => { setSent(null); setV({ ...empty, firstName: v.firstName, lastName: v.lastName, email: v.email, affiliation: v.affiliation }); setFile(null); setCo([]); setErrors({}) }}>{t('contribute.another')}</Button></div>
+                <div className="mt-8 flex flex-wrap gap-3"><Button to="/profile?tab=submissions" variant="dark">{t('contribute.viewSubmissions')}</Button><Button variant="outline" onClick={() => { setSent(null); setV({ ...empty, firstName: v.firstName, lastName: v.lastName, email: v.email }); setFile(null); setCo([]); setErrors({}) }}>{t('contribute.another')}</Button></div>
               </div>
             ) : (
               <form onSubmit={submit} noValidate className="space-y-12 border border-ink/15 bg-white p-6 md:p-10">
@@ -186,7 +192,7 @@ export default function ContributePage() {
                     <TextField name="lastName" label={t('form.lastName')} required autoComplete="family-name" value={v.lastName} error={errors.lastName} onChange={(e) => set('lastName', e.target.value)} onBlur={blur('lastName')} />
                   </div>
                   <TextField name="email" type="email" label={t('form.email.label')} required autoComplete="email" hint={t('form.emailHint')} value={v.email} error={errors.email} onChange={(e) => set('email', e.target.value)} onBlur={blur('email')} />
-                  <TextField name="affiliation" label={t('form.affiliation')} required hint={t('form.affiliationHint')} value={v.affiliation} error={errors.affiliation} onChange={(e) => set('affiliation', e.target.value)} onBlur={blur('affiliation')} />
+                  <SelectField name="studyLevel" label={t('form.studyLevel')} required placeholder={t('form.choose')} hint={t('form.studyLevelHint')} value={v.studyLevel} error={errors.studyLevel} onChange={(e) => set('studyLevel', e.target.value)} options={STUDY_LEVELS.map((lv) => ({ value: lv, label: lv }))} />
 
                   <div>
                     <p className="mb-2 font-sans text-[0.9375rem] font-medium">{t('contribute.coauthors')} <span className="ms-1 text-[0.8125rem] font-normal text-stone-500">{t('common.optional')}</span></p>
@@ -208,9 +214,9 @@ export default function ContributePage() {
                   <div className="grid gap-6 md:grid-cols-3">
                     <SelectField name="type" label={t('contribute.typeCol')} required placeholder={t('form.choose')} value={v.type} error={errors.type} onChange={(e) => set('type', e.target.value)} options={types.map((x) => ({ value: x.id, label: x.label }))} />
                     <SelectField name="category" label={t('form.category')} required placeholder={t('form.choose')} value={v.category} error={errors.category} onChange={(e) => set('category', e.target.value)} options={repo.categories().map((c) => ({ value: c.slug, label: cat(c.slug) }))} />
-                    <SelectField name="language" label={t('form.language')} required value={v.language} onChange={(e) => set('language', e.target.value)} options={[{ value: 'en', label: 'English' }, { value: 'fr', label: 'Français' }, { value: 'ar', label: 'العربية' }]} />
+                    <SelectField name="language" label={t('form.language')} required value={v.language} onChange={(e) => set('language', e.target.value)} options={[{ value: 'en', label: 'English' }, { value: 'fr', label: 'Français' }, { value: 'ar', label: 'العربية' }, { value: 'tzm', label: 'Tamazight' }]} />
                   </div>
-                  <TextArea name="abstract" label={t('form.abstract')} required rows={7} hint={t('form.abstractHint')} counter={`${wordCount(v.abstract)} / 250`} value={v.abstract} error={errors.abstract} onChange={(e) => set('abstract', e.target.value)} onBlur={blur('abstract')} />
+                  <TextArea name="abstract" label={t('form.abstract')} required rows={7} hint={t('form.abstractHint')} counter={t('form.abstractCounter', { n: wordCount(v.abstract) })} value={v.abstract} error={errors.abstract} onChange={(e) => set('abstract', e.target.value)} onBlur={blur('abstract')} />
                   <TextField name="keywords" label={t('form.keywords')} required hint={t('form.keywordsHint')} value={v.keywords} error={errors.keywords} onChange={(e) => set('keywords', e.target.value)} onBlur={blur('keywords')} />
                   <FileField label={t('form.file')} required accept={ACCEPT} hint={t('form.fileHint', { n: MAX_MB })} file={file} error={errors.file} onChange={(f) => { setFile(f); if (f) setErrors((p) => { const n = { ...p }; delete n.file; return n }) }} />
                   <TextArea name="comments" label={t('form.comments')} optional rows={4} value={v.comments} onChange={(e) => set('comments', e.target.value)} />

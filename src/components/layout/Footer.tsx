@@ -20,7 +20,6 @@ export default function Footer() {
             <Logo tone="light" className="!h-10 md:!h-11" />
             <p className="mt-6 max-w-[38ch] font-display text-[1.25rem] leading-snug tracking-[-0.015em] text-white/90">{siteConfig.tagline}</p>
             <p className="mt-4 max-w-[44ch] text-[0.9375rem] leading-relaxed text-white/65">{t('footer.about')}</p>
-            <p className="mt-6 font-sans text-[0.8125rem] text-white/50">{siteConfig.issn}</p>
           </div>
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
             <nav aria-label={t('footer.explore')}>

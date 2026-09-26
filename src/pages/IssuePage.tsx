@@ -11,6 +11,31 @@ import Reveal from '@/components/ui/Reveal'
 import IssueCover from '@/components/editorial/IssueCover'
 import Metadata from '@/components/editorial/Metadata'
 import NotFoundPage from './NotFoundPage'
+import type { Article } from '@/types'
+
+const sectionOrder = ['varia', 'dossier', 'comptes-rendus', 'entretiens'] as const
+
+/** Une ligne du sommaire — extraite pour être réutilisée à plat ou groupée par rubrique. */
+function TocRow({ a, i, cat, t }: { a: Article; i: number; cat: (s: string) => string; t: ReturnType<typeof useI18n>['t'] }) {
+  const authors = repo.authorsOf(a)
+  const im = a.image ? articleImage(a) : null
+  return (
+    <Reveal as="li" delay={Math.min(i, 4) * 50} className="group/card relative grid gap-4 py-8 md:grid-cols-[120px_minmax(0,1fr)_200px] md:gap-10 md:py-10">
+      <p className="font-sans text-[0.875rem] tabular-nums text-stone-500">{a.pages ? t('issues.pp', { p: a.pages }) : ''}</p>
+      <div>
+        <Tag to={`/search?topic=${a.category}`} className="relative z-10">{cat(a.category)}</Tag>
+        <h3 className="t-h2 mt-3">
+          <Link to={`/articles/${a.slug}`} lang={a.lang} className="after:absolute after:inset-0 hover:underline hover:decoration-1 hover:underline-offset-[6px]">{a.title}</Link>
+        </h3>
+        <p className="mt-3 max-w-[62ch] text-[1rem] leading-relaxed text-stone-700" lang={a.lang}>{a.deck}</p>
+        <Metadata authors={authors} minutes={readingMinutes(a)} size="sm" className="mt-4" />
+      </div>
+      <div className="hidden md:block">
+        {im && <div className="aspect-[4/3] overflow-hidden bg-cream"><img src={im.src} alt="" loading="lazy" style={{ objectPosition: im.position }} className="h-full w-full object-cover transition-transform duration-[900ms] ease-editorial group-hover/card:scale-[1.04]" /></div>}
+      </div>
+    </Reveal>
+  )
+}
 
 export default function IssuePage() {
   const { slug = '' } = useParams()
@@ -65,28 +90,24 @@ export default function IssuePage() {
           <h2 id="toc-h" className="t-h2">{t('issues.contents')}</h2>
           <p className="font-sans text-[0.875rem] text-stone-500">{t('issues.articleCount', { n: items.length })}</p>
         </div>
-        <ol className="divide-y divide-ink/15">
-          {items.map((a, i) => {
-            const authors = repo.authorsOf(a)
-            const im = a.image ? articleImage(a) : null
+        {sectionOrder.some((s) => items.some((a) => a.section === s)) ? (
+          sectionOrder.map((secKey) => {
+            const secItems = items.filter((a) => a.section === secKey)
+            if (!secItems.length) return null
             return (
-              <Reveal as="li" key={a.slug} delay={Math.min(i, 4) * 50} className="group/card relative grid gap-4 py-8 md:grid-cols-[120px_minmax(0,1fr)_200px] md:gap-10 md:py-10">
-                <p className="font-sans text-[0.875rem] tabular-nums text-stone-500">{a.pages ? t('issues.pp', { p: a.pages }) : ''}</p>
-                <div>
-                  <Tag to={`/search?topic=${a.category}`} className="relative z-10">{cat(a.category)}</Tag>
-                  <h3 className="t-h2 mt-3">
-                    <Link to={`/articles/${a.slug}`} lang={a.lang} className="after:absolute after:inset-0 hover:underline hover:decoration-1 hover:underline-offset-[6px]">{a.title}</Link>
-                  </h3>
-                  <p className="mt-3 max-w-[62ch] text-[1rem] leading-relaxed text-stone-700" lang={a.lang}>{a.deck}</p>
-                  <Metadata authors={authors} minutes={readingMinutes(a)} size="sm" className="mt-4" />
-                </div>
-                <div className="hidden md:block">
-                  {im && <div className="aspect-[4/3] overflow-hidden bg-cream"><img src={im.src} alt="" loading="lazy" style={{ objectPosition: im.position }} className="h-full w-full object-cover transition-transform duration-[900ms] ease-editorial group-hover/card:scale-[1.04]" /></div>}
-                </div>
-              </Reveal>
+              <div key={secKey} className="mt-10 first:mt-0">
+                <p className="t-label mb-2 text-mark-deep">{t(`section.${secKey}` as 'section.varia')}</p>
+                <ol className="divide-y divide-ink/15 border-t border-ink/15">
+                  {secItems.map((a, i) => <TocRow key={a.slug} a={a} i={i} cat={cat} t={t} />)}
+                </ol>
+              </div>
             )
-          })}
-        </ol>
+          })
+        ) : (
+          <ol className="divide-y divide-ink/15">
+            {items.map((a, i) => <TocRow key={a.slug} a={a} i={i} cat={cat} t={t} />)}
+          </ol>
+        )}
       </section>
 
       {/* Numéros voisins */}
