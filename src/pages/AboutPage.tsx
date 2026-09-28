@@ -56,8 +56,6 @@ export default function AboutPage() {
         <h2 id="name-h" className="t-h3 lg:col-span-4">{t('about.name')}</h2>
         <div className="space-y-4 lg:col-span-7">
           <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-ink/85">{t('about.nameText')}</p>
-          <p className="max-w-[62ch] text-[0.9375rem] leading-relaxed text-stone-700">{t('about.founderText', { name: siteConfig.founder.name })}</p>
-          <p className="max-w-[62ch] text-[0.9375rem] italic text-stone-500">{siteConfig.dedication}</p>
         </div>
       </section>
 
@@ -70,13 +68,12 @@ export default function AboutPage() {
             <p className="mt-6 flex items-center gap-2 font-sans text-[0.875rem] text-stone-700"><MapPin className="h-4 w-4" aria-hidden />{siteConfig.university.city}, {siteConfig.university.country}</p>
             <div className="mt-6"><Button href={siteConfig.university.url} external variant="dark" arrow>{t('about.estinLink')}<span className="sr-only"> ({t('common.newTab')})</span></Button></div>
           </div>
-          <div className="lg:col-span-7"><img src={img.library} alt={t('home.uniAlt')} width={1536} height={1024} loading="lazy" className="aspect-[3/2] w-full object-cover" /></div>
+          <div className="lg:col-span-7"><img src={img.campusReal} alt={t('home.uniAlt')} width={1536} height={1024} loading="lazy" className="aspect-[3/2] w-full object-cover" /></div>
         </div>
       </section>
 
       <section id="team" aria-labelledby="team-h" className="page mt-24 md:mt-32">
         <h2 id="team-h" className="t-h2 border-t border-ink pt-8">{t('about.team')}</h2>
-        <p className="mt-3 max-w-[64ch] text-[0.9375rem] leading-relaxed text-stone-700">{t('about.teamNote', { name: siteConfig.founder.name })}</p>
         <div className="mt-10 grid gap-12 lg:grid-cols-2">
           <Reveal>
             <h3 className="t-label mb-2 text-stone-700">{t('about.chiefEditors')}</h3>

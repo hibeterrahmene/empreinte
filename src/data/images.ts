@@ -1,4 +1,5 @@
 import poster from '@/assets/images/illustration-poster.webp'
+import campusReal from '@/assets/images/campus-real.webp'
 import library from '@/assets/images/illustration-library.webp'
 import sun from '@/assets/images/crop-sun.webp'
 import facadePoster from '@/assets/images/crop-facade-poster.webp'
@@ -26,6 +27,7 @@ import figSeeds from '@/assets/issues/fig-seeds.webp'
 
 export const img = {
   poster,
+  campusReal,
   library,
   sun,
   facadePoster,

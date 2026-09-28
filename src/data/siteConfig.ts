@@ -18,17 +18,21 @@ export const siteConfig = {
     url: 'https://www.estin.dz',
   },
   contact: {
-    email: 'revue_empreinte@estin.dz', // PLACEHOLDER — non communiqué
-    submissions: 'revue_empreinte@estin.dz', // PLACEHOLDER — non communiqué
+    email: 'lempreinte@estin.dz', // PLACEHOLDER — non communiqué
+    submissions: 'submissions@estin.dz', // PLACEHOLDER — non communiqué
     address: ['ESTIN — Bibliothèque', 'Béjaïa, Algérie'], // PLACEHOLDER — non communiqué
   },
   /** Formulaire Google utilisé pour les appels à contribution des numéros 1 et 2. */
   googleFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfY_RtrN6nm1gzGiPqZ2zq_rWcCsY8DFh5b0xyldXeyikTRRw/viewform',
   social: [
-    { label: 'Instagram', href: 'https://www.instagram.com/empreinte.estin' }, // PLACEHOLDER — non communiqué
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/empreinte-estin' }, // PLACEHOLDER — non communiqué
-    { label: 'Facebook', href: 'https://www.facebook.com/empreinte.estin' }, // PLACEHOLDER — non communiqué
+    { label: 'Instagram', href: '#' }, // PLACEHOLDER — non communiqué
+    { label: 'LinkedIn', href: '#' }, // PLACEHOLDER — non communiqué
+    { label: 'Facebook', href: '#' }, // PLACEHOLDER — non communiqué
   ],
+  /** Née d'une initiative du Dr S. Iken, responsable de la bibliothèque de l'ESTIN. */
+  founder: { name: 'Dr. Sofiane IKEN', role: 'Responsable de la bibliothèque de l’ESTIN, fondateur de la revue' },
+  /** Dédicace imprimée en page 2 du numéro 1. */
+  dedication: 'À la mémoire de Zahia et Chams.',
 } as const
 
 /**

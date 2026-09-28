@@ -134,7 +134,7 @@ export default function HomePage() {
       {/* 7 — Le journal & l'ESTIN */}
       <section aria-labelledby="uni-h" className="page mt-24 md:mt-36">
         <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="overflow-hidden lg:col-span-7"><img src={img.library} alt={t('home.uniAlt')} loading="lazy" width={1536} height={1024} className="h-full max-h-[34rem] min-h-[16rem] w-full object-cover" /></div>
+          <div className="overflow-hidden lg:col-span-7"><img src={img.campusReal} alt={t('home.uniAlt')} loading="lazy" width={1536} height={1024} className="h-full max-h-[34rem] min-h-[16rem] w-full object-cover" /></div>
           <div className="flex flex-col justify-center lg:col-span-5">
             <img src={estinColor} alt="ESTIN" width={703} height={254} loading="lazy" className="h-12 w-auto self-start md:h-14" />
             <h2 id="uni-h" className="t-h2 mt-8">{t('home.uniTitle')}</h2>
